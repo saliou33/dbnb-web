@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card, NavItem } from '../components';
 import { BiLogOut } from 'react-icons/bi';
 import { AiFillSetting } from 'react-icons/ai';
+import { UserContext } from '../context/UserContext';
 import CircleOrnament from '../assets/CircleOrnament.svg';
 import Logo from '../assets/logo.png';
 
 const Sidebar = () => {
+
+  const { logoutUser } = useContext(UserContext);
+
   return (
     <div className='relative flex flex-col items-center sidebar h-screen w-[210px] py-8 px-4'>
       <img src={Logo} alt="Logo Dakar Bi Nu Bokk" className='sm:w-[110px]'/>
@@ -14,7 +18,6 @@ const Sidebar = () => {
       <Card>
         <p>Nom:</p>
         <p>Tel:</p>
-
         <div className='text-xl'>
          <AiFillSetting className='text-green-800 m-auto cursor-pointer hover:text-green-600'/>
         </div>
@@ -32,7 +35,7 @@ const Sidebar = () => {
         <NavItem  text="Statistiques" href="/"/>
       </Card>
 
-      <p className='absolute bottom-[50px] text-gray-200 flex items-center mt-10 gap-3 text-xl'>
+      <p className='absolute bottom-[50px] text-gray-200 flex items-center mt-10 gap-3 text-xl cursor-pointer' onClick={logoutUser}>
         <BiLogOut/> <span>Logout</span>
       </p>
 
