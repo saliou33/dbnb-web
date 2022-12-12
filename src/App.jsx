@@ -14,8 +14,13 @@ const App = () => {
 
   useEffect(() => {
     getToken();
-    remote.defaults.headers.common['Authorization'] = `Bearer ${user?.token}`;
   }, [])
+
+  useEffect(() => {
+    if(user?.token) {
+      remote.defaults.headers.common['Authorization'] = `Bearer ${user?.token}`;
+    }
+  }, [user])
 
 
   return (

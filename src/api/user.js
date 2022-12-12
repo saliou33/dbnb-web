@@ -7,7 +7,6 @@ export const login = async (data) => {
 
 export const verify = async (token) => {
   const result = await remote.get('/users/verify');
-
   return result;
 };
 

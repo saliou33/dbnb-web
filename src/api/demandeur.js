@@ -1,12 +1,12 @@
 import { remote } from '../utils/api';
 
 export const createDemandeur = async (data) => {
-  const result = await remote.post('/demandeurs', data);
+  const result = await remote.post('/demandeurs/', data);
   return result;
 };
 
 export const getDemandeurs = async () => {
-  const result = await remote.get('/demandeurs');
+  const result = await remote.get('/demandeurs/');
   return result;
 };
 
@@ -52,6 +52,6 @@ export const deselectDemandeurs = async (data) => {
 };
 
 export const deleteDemandeur = async (id) => {
-  const result = await remote.delete(`/demadeurs/${id}`);
+  const result = await remote.delete(`/demandeurs/${id}`);
   return result;
 };

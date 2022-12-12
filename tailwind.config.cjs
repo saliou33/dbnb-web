@@ -9,6 +9,9 @@ module.exports = {
         xs: '375px',
         ...defaultTheme.screens,
       },
+      fontFamily: {
+        pop: ['"poppins"', ...defaultTheme.fontFamily.sans],
+      },
     },
   },
   plugins: [],
