@@ -30,7 +30,7 @@ const App = () => {
         <Route path="/" element={<ProtectedRoute to="/login" toggle={!user?.token} />}>
           <Route path="/dashboard" element={<Home />}>
             <Route index element={<Demandeurs/>} />
-            <Route path='history' element={<div></div>}/>
+            <Route path='historique' element={<div></div>}/>
             <Route path='demandeurs' element={<Demandeurs />}/>
             <Route path='statistiques' element={<div></div>}/>
           </Route>

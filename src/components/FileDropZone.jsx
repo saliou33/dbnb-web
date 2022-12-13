@@ -16,7 +16,7 @@ const FileDropZone = ({file, setFile}) => {
     onDrop,
     accept: {
       'text/csv': ['.csv'],
-      'application/vnd.ms-excel': ['.xls']
+      'application/vnd.ms-excel': ['.xls', '.xlsx']
     },
     multiple: false,
     maxFiles: 1,

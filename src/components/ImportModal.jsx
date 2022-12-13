@@ -8,12 +8,9 @@ const ImportModal = ({show, toggleShow}) => {
 
   const handleUpload =  async () => {
     let formData = new FormData();
-    console.log(file);
-    formData.append('file', file);
-    console.log(formData.entries());
-    
-    //const {data} = await uploadDemandeurs({file});
-    //alert(data);
+
+    const {data} = await uploadDemandeurs(file);
+    console.log(data);
   }
 
   return (

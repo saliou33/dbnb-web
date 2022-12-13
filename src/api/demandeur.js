@@ -23,7 +23,7 @@ export const updateDemandeur = async (data) => {
 export const uploadDemandeurs = async (file) => {
   let formData = new FormData();
   formData.append('file', file);
-  console.log(formData);
+
   const result = await remote.post('/demandeurs/upload', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -35,6 +35,7 @@ export const uploadDemandeurs = async (file) => {
 export const uploadDemandeursCheck = async (file) => {
   let formData = new FormData();
   formData.append('file', file);
+
   const result = await remote.post('/demandeurs/upload_check', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -58,6 +59,6 @@ export const deleteDemandeur = async (id) => {
   return result;
 };
 export const deleteDemandeurs = async (data) => {
-  const result = await remote.delete('/demandeurs/delete', data);
+  const result = await remote.post('/demandeurs/delete', data);
   return result;
 };

@@ -25,7 +25,7 @@ const Demandeurs = () => {
   const toggleReload = () => setReload(prev => !prev);
   const toggleShowImport = () => setShowImport(prev => !prev);
 
-  const getIdArray = (rows) => rows.map((table) => table.getSelectedRowModel().flatRows.map(row => row.getValue('id')));
+  const getIdArray = (table) => table.getSelectedRowModel().flatRows.map(row => row.getValue('id'));
   
   const columns = useMemo(
     () => [
@@ -116,11 +116,11 @@ const Demandeurs = () => {
 
         const handleDelete = async () => {
           
-          if(prompt(msgIrreversible)) {
-            const ids = getIdArray(table);
+          if(confirm(msgIrreversible)) {
+            let demandeurs = getIdArray(table);
 
-            const {data} = await deleteDemandeurs({demandeurs: ids});
-            alert(data?.msg);
+            const {data} = await deleteDemandeurs({demandeurs});
+            console.log(data);
           }
          
         };
@@ -129,12 +129,10 @@ const Demandeurs = () => {
         };
 
         const handleCreateGroupe = async () => {
-          alert(ids);
+          let demandeurs = getIdArray(table)
 
-          // const ids = getIdArray(table);
-
-          // const {data} = await deleteDemandeurs({demandeurs: ids});
-          // alert(data?.msg);
+          const {data} = await createGroupe({demandeurs});
+          console.log(data);
         };
 
         return (

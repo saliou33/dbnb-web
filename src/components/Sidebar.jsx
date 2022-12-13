@@ -25,7 +25,7 @@ const Sidebar = () => {
       <span className='line'></span>
       <h2 className='text-gray-200 font-semibold p-1'> Gestionnaire </h2>
       <Card>
-        <NavItem  text="Demandeurs" href="/demandeurs"/>
+        <NavItem  text="Demandeurs" href="/dashboard/demandeurs"/>
         <NavItem  text="QrCode" href="/" collapse={true}>
           <div className='flex flex-col bg-pink bg-pink-100 px-2'>
             <a href='/generate'>Générer</a>
