@@ -14,7 +14,7 @@ export const appActions = {
   CLEAR_STATUS: 'CLEAR_STATUS',
 };
 
-export const statusCode= {
+export const statusCode = {
   SUCCESS: 'success',
   ERROR: 'error'
 }

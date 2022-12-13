@@ -1,16 +1,13 @@
 
 import React, { useMemo, useEffect, useState } from 'react';
 import MaterialReactTable from 'material-react-table';
-import CustomButton from './CustomButton';
 import { getDemandeurs, deleteDemandeurs, updateDemandeur } from '../api/demandeur';
 import { createGroupe } from '../api/groupe';
-import ImportModal from './ImportModal';
-import Modal from './Modal';
+import { ImportModal, SectionHeader, CustomButton } from '../components';
 import { Button } from '@mui/material';
 import TableSvg from '../assets/table.svg';
 import ImportSvg from '../assets/import.svg';
 import CreateSvg from '../assets/create..svg';
-
 
 const msgIrreversible = "Action irréversible!, Vous voulez toujours continuer?"
 
@@ -81,8 +78,7 @@ const Demandeurs = () => {
 
   return (
     <div className='flex flex-col gap-5'>
-      <h1 className='text-3xl font-bold'>Demandeurs</h1>
-      <span className='border-b-2 max-w-64 h-1 border-gray-400 block'></span>
+      <SectionHeader text="Demandeur"/>
 
       <div className='flex gap-4 items-end'>
         <CustomButton handler={toggleMode} icon={TableSvg} text='Données Demandeurs' />

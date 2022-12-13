@@ -1,6 +1,6 @@
 import react, { createContext, useReducer, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login, verify } from '../api/user';
+import { login } from '../api/user';
 import { ApplicationContext, statusCode} from './ApplicationContext';
 
 const initialState = {

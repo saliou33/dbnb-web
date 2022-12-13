@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Card, NavItem } from '../components';
 import { BiLogOut } from 'react-icons/bi';
 import { AiFillSetting } from 'react-icons/ai';
@@ -25,14 +26,14 @@ const Sidebar = () => {
       <span className='line'></span>
       <h2 className='text-gray-200 font-semibold p-1'> Gestionnaire </h2>
       <Card>
-        <NavItem  text="Demandeurs" href="/dashboard/demandeurs"/>
-        <NavItem  text="QrCode" href="/" collapse={true}>
+        <NavItem  text="Demandeur" href="/dashboard/demandeur"/>
+        <NavItem  text="QRCode"  collapse={true}>
           <div className='flex flex-col bg-pink bg-pink-100 px-2'>
-            <a href='/generate'>Générer</a>
-            <a href='/history'>Historique</a>
+            <NavLink to='/dashboard/qrcode/groupe'>Groupe</NavLink>
+            <NavLink to='/dashboard/qrcode/details'>Détails</NavLink>
           </div>
         </NavItem>
-        <NavItem  text="Statistiques" href="/"/>
+        <NavItem  text="Statistiques" href="/dashboard/statistiques"/>
       </Card>
 
       <p className='absolute bottom-[50px] text-gray-200 flex items-center mt-10 gap-3 text-xl cursor-pointer' onClick={logoutUser}>

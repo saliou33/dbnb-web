@@ -1,12 +1,16 @@
 import react, { useContext, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home'
+import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
-import { Demandeurs, StatusMessage, ProtectedRoute } from './components'
+import Demandeurs from './sections/Demandeurs';
+import Details from './sections/Details';
+import Groupe from './sections/Groupe';
+import { StatusMessage, ProtectedRoute } from './components'
 import { remote } from './utils/api';
 
 import './App.css'
 import { UserContext } from './context/UserContext';
+import Statistiques from './sections/Statistiques';
 
 const App = () => {
 
@@ -28,11 +32,12 @@ const App = () => {
       <StatusMessage/>
       <Routes>
         <Route path="/" element={<ProtectedRoute to="/login" toggle={!user?.token} />}>
-          <Route path="/dashboard" element={<Home />}>
+          <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<Demandeurs/>} />
-            <Route path='historique' element={<div></div>}/>
-            <Route path='demandeurs' element={<Demandeurs />}/>
-            <Route path='statistiques' element={<div></div>}/>
+            <Route path='qrcode/details' element={<Details />} />
+            <Route path='qrcode/groupe' element={<Groupe />} />
+            <Route path='statistiques' element={<Statistiques />} />
+            <Route path='demandeur' element={<Demandeurs />} />
           </Route>
         </Route>
 
