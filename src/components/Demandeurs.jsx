@@ -2,21 +2,35 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import MaterialReactTable from 'material-react-table';
 import CustomButton from './CustomButton';
-import { getDemandeurs } from '../api/demandeur';
+import { getDemandeurs, deleteDemandeurs, updateDemandeur } from '../api/demandeur';
+import { createGroupe } from '../api/groupe';
+import ImportModal from './ImportModal';
+import Modal from './Modal';
 import { Button } from '@mui/material';
 import TableSvg from '../assets/table.svg';
 import ImportSvg from '../assets/import.svg';
 import CreateSvg from '../assets/create..svg';
 
+
+const msgIrreversible = "Action irréversible!, Vous voulez toujours continuer?"
+
 const Demandeurs = () => {
 
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [reload, setReload] = useState(false);
   const [dataList, setDataList] = useState([]);
+  const [showImport, setShowImport] = useState(false);
+
   const toggleMode = () => setIsFullScreen(prev => !prev);
+  const toggleReload = () => setReload(prev => !prev);
+  const toggleShowImport = () => setShowImport(prev => !prev);
+
+  const getIdArray = (rows) => rows.map((table) => table.getSelectedRowModel().flatRows.map(row => row.getValue('id')));
   
   const columns = useMemo(
     () => [
       {
+        id: 'id',
         accessorKey: 'id',
         header: 'ID',
         enableColumnOrdering: false,
@@ -63,20 +77,22 @@ const Demandeurs = () => {
     }
   
     fetchData();
-  }, [])
+  }, [reload])
 
   return (
-    <div className='flex flex-col gap-6'>
+    <div className='flex flex-col gap-5'>
       <h1 className='text-3xl font-bold'>Demandeurs</h1>
       <span className='border-b-2 max-w-64 h-1 border-gray-400 block'></span>
 
-      <div className='flex gap-2 items-end'>
-        <CustomButton handler={toggleMode} icon={TableSvg} text='Demandeurs' />
-
-        <CustomButton icon={ImportSvg} text='Importer la liste des demandeurs(.xls, .csv)'/>
-
+      <div className='flex gap-4 items-end'>
+        <CustomButton handler={toggleMode} icon={TableSvg} text='Données Demandeurs' />
+        <CustomButton handler={() => setShowImport(true)} icon={ImportSvg} text='Importer la liste des demandeurs(.xls, .csv)'/>
         <CustomButton icon={CreateSvg}  text='créer un demandeur'/>
       </div>
+
+      {!isFullScreen && showImport && (
+        <ImportModal show={showImport} toggleShow={toggleShowImport}  />
+      )}
 
      {isFullScreen && (
        <MaterialReactTable 
@@ -97,61 +113,61 @@ const Demandeurs = () => {
        }}
 
        renderTopToolbarCustomActions={({ table }) => {
-        const handleDeactivate = () => {
-          table.getSelectedRowModel().flatRows.map((row) => {
-            alert('deactivating ' + row.getValue('name'));
-          });
+
+        const handleDelete = async () => {
+          
+          if(prompt(msgIrreversible)) {
+            const ids = getIdArray(table);
+
+            const {data} = await deleteDemandeurs({demandeurs: ids});
+            alert(data?.msg);
+          }
+         
+        };
+        const handleUpdate = async () => {
+          alert('Fonctionnalité Pas Encore Prise En Compte');
         };
 
-        const handleActivate = () => {
-          table.getSelectedRowModel().flatRows.map((row) => {
-            alert('activating ' + row.getValue('name'));
-          });
-        };
+        const handleCreateGroupe = async () => {
+          alert(ids);
 
-        const handleContact = () => {
-          table.getSelectedRowModel().flatRows.map((row) => {
-            alert('contact ' + row.getValue('name'));
-          });
+          // const ids = getIdArray(table);
+
+          // const {data} = await deleteDemandeurs({demandeurs: ids});
+          // alert(data?.msg);
         };
 
         return (
           <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <Button
-              color="warning"
-              disabled={table.getSelectedRowModel().flatRows.length === 0}
-              onClick={handleDeactivate}
-              variant="contained"
-            >
-              Sélectionner
-            </Button>
-
+            
             <Button
               color="success"
               disabled={table.getSelectedRowModel().flatRows.length === 0}
-              onClick={handleActivate}
+              onClick={handleCreateGroupe}
               variant="contained"
             >
-              Déselectionner
+              Créer Un groupe
             </Button>
 
             <Button
               color="error"
               disabled={table.getSelectedRowModel().flatRows.length === 0}
-              onClick={handleContact}
+              onClick={handleDelete}
               variant="contained"
             >
               Supprimer
             </Button>
 
             <Button
-              color="primary"
-              disabled={table.getSelectedRowModel().flatRows.length === 0}
-              onClick={handleContact}
+              color="secondary"
+              disabled={table.getSelectedRowModel().flatRows.length != 1}
+              onClick={handleUpdate}
               variant="contained"
             >
-              Générer Qrcode
+              Modifier
             </Button>
+
+          
           </div>
         );
       }}

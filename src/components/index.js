@@ -8,3 +8,6 @@ export { default as StatusMessage } from './StatusMessage';
 export { default as ProtectedRoute } from './ProtectedRoute';
 export { default as Test } from './Test';
 export { default as CustomButton } from './CustomButton';
+export { default as Modal } from './Modal';
+export { default as ImportModal } from './ImportModal';
+export { default as FileDropZone } from './FileDropZone';
