@@ -9,7 +9,7 @@ import TableSvg from '../assets/table.svg';
 import ImportSvg from '../assets/import.svg';
 import CreateSvg from '../assets/create..svg';
 
-const msgIrreversible = "Action irréversible!, Vous voulez toujours continuer?"
+const msgIrreversible = "Action irréversible!, Vous voulez toujours continuer?";
 
 const Demandeurs = () => {
 
@@ -21,8 +21,6 @@ const Demandeurs = () => {
   const toggleMode = () => setIsFullScreen(prev => !prev);
   const toggleReload = () => setReload(prev => !prev);
   const toggleShowImport = () => setShowImport(prev => !prev);
-
-  const getIdArray = (table) => table.getSelectedRowModel().flatRows.map(row => row.getValue('id'));
   
   const columns = useMemo(
     () => [
@@ -110,6 +108,8 @@ const Demandeurs = () => {
 
        renderTopToolbarCustomActions={({ table }) => {
 
+        const getIdArray = (table) => table.getSelectedRowModel().flatRows.map(row => row.getValue('id'));
+
         const handleDelete = async () => {
           
           if(confirm(msgIrreversible)) {
@@ -120,6 +120,7 @@ const Demandeurs = () => {
           }
          
         };
+        
         const handleUpdate = async () => {
           alert('Fonctionnalité Pas Encore Prise En Compte');
         };

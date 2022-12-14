@@ -1,7 +1,7 @@
 import { remote } from '../utils/api';
 
 export const getGroupes = async (data) => {
-  const result = await remote.get('/groupes', data);
+  const result = await remote.get('/groupes/', data);
   return result;
 };
 
