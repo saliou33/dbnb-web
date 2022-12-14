@@ -1,3 +1,4 @@
+import { AiOutlineException } from 'react-icons/ai';
 import { remote } from '../utils/api';
 
 export const createDemandeur = async (data) => {
@@ -62,3 +63,4 @@ export const deleteDemandeurs = async (data) => {
   const result = await remote.post('/demandeurs/delete', data);
   return result;
 };
+

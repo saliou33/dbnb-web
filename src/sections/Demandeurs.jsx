@@ -1,9 +1,9 @@
 
-import React, { useMemo, useEffect, useState } from 'react';
+import React, { useMemo, useEffect, useState, useContext } from 'react';
 import MaterialReactTable from 'material-react-table';
 import { getDemandeurs, deleteDemandeurs, updateDemandeur } from '../api/demandeur';
 import { createGroupe } from '../api/groupe';
-import { ImportModal, SectionHeader, CustomButton } from '../components';
+import { ImportModal, SectionHeader, CustomButton, DemandeurForm } from '../components';
 import { Button } from '@mui/material';
 import TableSvg from '../assets/table.svg';
 import ImportSvg from '../assets/import.svg';
@@ -13,14 +13,17 @@ const msgIrreversible = "Action irréversible!, Vous voulez toujours continuer?"
 
 const Demandeurs = () => {
 
+  const {globalHandler} = useContext(ApplicationContext);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [reload, setReload] = useState(false);
   const [dataList, setDataList] = useState([]);
   const [showImport, setShowImport] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   const toggleMode = () => setIsFullScreen(prev => !prev);
   const toggleReload = () => setReload(prev => !prev);
   const toggleShowImport = () => setShowImport(prev => !prev);
+  const toggleShowForm = () => setShowForm(prev => !prev);
   
   const columns = useMemo(
     () => [
@@ -81,11 +84,15 @@ const Demandeurs = () => {
       <div className='flex gap-4 items-end'>
         <CustomButton handler={toggleMode} icon={TableSvg} text='Données Demandeurs' />
         <CustomButton handler={() => setShowImport(true)} icon={ImportSvg} text='Importer la liste des demandeurs(.xls, .csv)'/>
-        <CustomButton icon={CreateSvg}  text='créer un demandeur'/>
+        <CustomButton handler={() => setShowForm(true)}  icon={CreateSvg}  text='créer un demandeur'/>
       </div>
 
       {!isFullScreen && showImport && (
         <ImportModal show={showImport} toggleShow={toggleShowImport}  />
+      )}
+
+      {!isFullScreen && showForm && (
+        <DemandeurForm toggle={showForm} toggleShow={toggleShowForm}  />
       )}
 
      {isFullScreen && (

@@ -19,7 +19,6 @@ export const statusCode = {
   ERROR: 'error'
 }
 
-
 const reducer = (state, action) => {
   switch (action.type) {
     case appActions.SET_STATUS:
@@ -58,8 +57,22 @@ const ApplicationContextProvider = ({ children }) => {
     dispatch({type: appActions.CLEAR_STATUS})
   }
 
+  const globalHandler = (target, key, descriptor) => {
+    const fn = descriptor.value;
+
+    descriptor.value = async (...args) => {
+      try {
+        const {data} = await fn.apply(this, args);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  };
+
+  
   return (
-    <ApplicationContext.Provider value={{ ...state, setStatus, clearStatus}}>
+    <ApplicationContext.Provider value={{ ...state, setStatus, clearStatus, globalHandler}}>
       <UserContextProvider>{children}</UserContextProvider>
     </ApplicationContext.Provider>
   );

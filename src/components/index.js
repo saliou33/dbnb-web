@@ -10,3 +10,5 @@ export { default as Modal } from './Modal';
 export { default as ImportModal } from './ImportModal';
 export { default as FileDropZone } from './FileDropZone';
 export { default as SectionHeader } from './SectionHeader';
+export { default as DemandeurForm } from './DemandeurForm';
+export { default as ButtonSubmit } from './ButtonSubmit';
