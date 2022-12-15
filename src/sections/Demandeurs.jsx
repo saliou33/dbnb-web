@@ -88,11 +88,11 @@ const Demandeurs = () => {
       </div>
 
       {!isFullScreen && showImport && (
-        <ImportModal show={showImport} toggleShow={toggleShowImport}  />
+        <ImportModal show={showImport} toggleShow={toggleShowImport} toggleReload={toggleReload} />
       )}
 
       {!isFullScreen && showForm && (
-        <DemandeurForm toggle={showForm} toggleShow={toggleShowForm}  />
+        <DemandeurForm toggle={showForm} toggleShow={toggleShowForm} toggleReload={toggleReload}  />
       )}
 
      {isFullScreen && (
@@ -123,6 +123,7 @@ const Demandeurs = () => {
             let demandeurs = getIdArray(table);
 
             await handler({fn:deleteDemandeurs, param:{demandeurs}, show:true});
+            toggleReload();
           }
          
         };
@@ -135,6 +136,8 @@ const Demandeurs = () => {
           let demandeurs = getIdArray(table)
 
           await handler({fn:createGroupe, param:{demandeurs}, show:true});
+          toggleReload();
+
         };
 
         return (

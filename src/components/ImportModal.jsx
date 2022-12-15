@@ -4,14 +4,13 @@ import { uploadDemandeurs } from '../api/demandeur';
 import FileDropZone from './FileDropZone';
 import { ApplicationContext } from '../context/ApplicationContext';
 
-const ImportModal = ({show, toggleShow}) => {
+const ImportModal = ({show, toggleShow, toggleReload}) => {
   const {handler} = useContext(ApplicationContext);
   const [file, setFile] = useState(null);
 
   const handleUpload =  async () => {
-
     await handler({fn:uploadDemandeurs, param:file})
-    const {data} = await uploadDemandeurs(file);
+    toggleReload();
   }
 
   return (
@@ -20,7 +19,7 @@ const ImportModal = ({show, toggleShow}) => {
         <FileDropZone file={file} setFile={setFile}/>
         {
           file &&
-          (<button className='rounded-lg text-lg green-bg px-3 py-2 hover:bg-blue-600' onClick={handleUpload}>Valider</button>)
+          (<button className='rounded-lg text-lg green-bg px-3 py-2 hover:bg-pink-400' onClick={handleUpload}>Valider</button>)
         }
     </Modal>
   )

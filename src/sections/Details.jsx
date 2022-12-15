@@ -33,7 +33,11 @@ const Details = () => {
       },
       {
         accessorKey: 'url',
-        header: 'Lien'
+        header: 'Lien',
+        Cell: ({ cell }) => {
+          // TODO: change to icon
+          return <a target='_blank' href={cell.getValue()}>$larr;</a>
+        },
       },
       {
         accessorKey: 'created_at',

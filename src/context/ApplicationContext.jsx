@@ -14,7 +14,6 @@ export const appActions = {
   SET_STATUS: 'SET_STATUS',
   CLEAR_STATUS: 'CLEAR_STATUS',
   SET_LOADING: 'SET_LOADING',
-  CLEAR_LOADING: 'CLEAR_LOADING'
 };
 
 export const statusCode = {
@@ -44,13 +43,13 @@ const reducer = (state, action) => {
     case appActions.SET_LOADING:
       return {
         ...state,
-        loading: true,
+        loading: action.payload,
       }
 
     case appActions.CLEAR_LOADING:
       return {
         ...state,
-        loading: false,
+        loading: action.payload,
       }
 
     default:
@@ -72,20 +71,18 @@ const ApplicationContextProvider = ({ children }) => {
   }
 
   const setLoading = () => {
-    dispatch({type: appActions.SET_LOADING})
+    dispatch({type: appActions.SET_LOADING, payload: true})
   }
 
   const clearLoading = () => {
-    dispatch({type: appActions.CLEAR_LOADING})
+    dispatch({type: appActions.CLEAR_LOADING, payload: false})
   }
 
 
   const handler = async ({fn, param, out=false, show=true}) => {
+    setLoading();
     try {
       const {data} = await fn(param);
-      setLoading();
-      setStatus(statusCode.SUCCESS, data?.msg);
-      clearLoading();
 
       if(show) setStatus(statusCode.SUCCESS, data?.msg);
 
@@ -95,6 +92,7 @@ const ApplicationContextProvider = ({ children }) => {
 
     } catch(e) {
       setStatus(statusCode.ERROR, e?.response?.data?.msg)
+    } finally {
       clearLoading();
     }
   }
