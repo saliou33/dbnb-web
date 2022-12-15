@@ -50,6 +50,7 @@ const reducer = (state, action) => {
 export const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
+  // TODO: Change auth to be cookie based
   const [state, dispatch] = useReducer(reducer, initialState);
   const {setStatus} = useContext(ApplicationContext);
   const navigate = useNavigate();

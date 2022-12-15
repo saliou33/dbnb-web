@@ -6,12 +6,15 @@ const initialState = {
     code: '',
     msg: '',
   },
-  lease: 5000
+  lease: 5000,
+  loading: false
 };
 
 export const appActions = {
   SET_STATUS: 'SET_STATUS',
   CLEAR_STATUS: 'CLEAR_STATUS',
+  SET_LOADING: 'SET_LOADING',
+  CLEAR_LOADING: 'CLEAR_LOADING'
 };
 
 export const statusCode = {
@@ -38,6 +41,17 @@ const reducer = (state, action) => {
           msg: '',
         },
       };
+    case appActions.SET_LOADING:
+      return {
+        ...state,
+        loading: true,
+      }
+
+    case appActions.CLEAR_LOADING:
+      return {
+        ...state,
+        loading: false,
+      }
 
     default:
       return state;
@@ -57,22 +71,43 @@ const ApplicationContextProvider = ({ children }) => {
     dispatch({type: appActions.CLEAR_STATUS})
   }
 
-  const globalHandler = (target, key, descriptor) => {
-    const fn = descriptor.value;
+  const setLoading = () => {
+    dispatch({type: appActions.SET_LOADING})
+  }
 
-    descriptor.value = async (...args) => {
-      try {
-        const {data} = await fn.apply(this, args);
-        console.log(data);
-      } catch (error) {
-        console.log(error);
+  const clearLoading = () => {
+    dispatch({type: appActions.CLEAR_LOADING})
+  }
+
+
+  const handler = async ({fn, param, out=false, show=true}) => {
+    try {
+      const {data} = await fn(param);
+      setLoading();
+      setStatus(statusCode.SUCCESS, data?.msg);
+      clearLoading();
+
+      if(show) setStatus(statusCode.SUCCESS, data?.msg);
+
+      if(out) {
+        return data;
       }
-    };
-  };
 
-  
+    } catch(e) {
+      setStatus(statusCode.ERROR, e?.response?.data?.msg)
+      clearLoading();
+    }
+  }
+
   return (
-    <ApplicationContext.Provider value={{ ...state, setStatus, clearStatus, globalHandler}}>
+    <ApplicationContext.Provider value={{
+       ...state, 
+       setStatus, 
+       clearStatus, 
+       handler,
+       setLoading,
+       clearLoading 
+    }}>
       <UserContextProvider>{children}</UserContextProvider>
     </ApplicationContext.Provider>
   );

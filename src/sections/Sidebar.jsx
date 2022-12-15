@@ -12,7 +12,7 @@ const Sidebar = () => {
   const { logoutUser } = useContext(UserContext);
 
   return (
-    <div className='relative flex flex-col items-center sidebar h-screen w-[210px] py-8 px-4'>
+    <div className='relative flex flex-col items-center sidebar h-screen md:w-[15rem] py-8 px-4'>
       <img src={Logo} alt="Logo Dakar Bi Nu Bokk" className='sm:w-[110px]'/>
       <span className='line'></span>
       <h2 className='text-gray-200 font-semibold p-1'> Utilisateur </h2>
@@ -28,7 +28,7 @@ const Sidebar = () => {
       <Card>
         <NavItem  text="Demandeur" href="/dashboard/demandeur"/>
         <NavItem  text="QRCode"  collapse={true}>
-          <div className='flex flex-col bg-pink bg-pink-100 px-2'>
+          <div className='flex flex-col bg-pink bg-pink-100 px-2 gap-2'>
             <NavLink to='/dashboard/qrcode/groupe'>Groupe</NavLink>
             <NavLink to='/dashboard/qrcode/details'>Détails</NavLink>
           </div>

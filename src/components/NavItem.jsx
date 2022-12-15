@@ -22,7 +22,7 @@ const NavItem = ({children=undefined, collapse=false, text, href}) => {
         <NavLink to={href} className="text-lg hover:font-semibold hover:text-pink-900" >{text}</NavLink>
         {collapse && <AiFillDownCircle className='text-green-800 text-lg hover:text-green-600'/>}
       </div>
-      {toggled && (<div className='flex flex-col sidebar-link-sub rounded-lg'>
+      {toggled && (<div className='flex flex-col sidebar-link-sub rounded-lg mt-2'>
             {children}
         </div>
       )}

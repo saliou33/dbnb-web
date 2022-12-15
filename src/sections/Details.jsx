@@ -1,10 +1,12 @@
-import React, { useMemo, useEffect, useState } from 'react'
+import React, { useMemo, useEffect, useState, useContext } from 'react'
 import { SectionHeader } from '../components';
 import { getQrcodes } from '../api/qrcode';
 import MaterialReactTable from 'material-react-table';
+import { ApplicationContext } from '../context/ApplicationContext';
 
 const Details = () => {
 
+  const {handler} = useContext(ApplicationContext);
   const [dataList, setDataList] = useState([]);
 
   useEffect(() => {

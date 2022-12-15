@@ -8,12 +8,12 @@ import { Button } from '@mui/material';
 import TableSvg from '../assets/table.svg';
 import ImportSvg from '../assets/import.svg';
 import CreateSvg from '../assets/create..svg';
+import { ApplicationContext } from '../context/ApplicationContext';
 
 const msgIrreversible = "Action irréversible!, Vous voulez toujours continuer?";
 
 const Demandeurs = () => {
-
-  const {globalHandler} = useContext(ApplicationContext);
+  const {handler} = useContext(ApplicationContext);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [reload, setReload] = useState(false);
   const [dataList, setDataList] = useState([]);
@@ -70,7 +70,7 @@ const Demandeurs = () => {
   
   useEffect(() => {
     const fetchData = async() => {
-        const {data} = await getDemandeurs();
+        const data = await handler({fn: getDemandeurs, out:true});
         setDataList(data?.demandeurs);
     }
   
@@ -122,8 +122,7 @@ const Demandeurs = () => {
           if(confirm(msgIrreversible)) {
             let demandeurs = getIdArray(table);
 
-            const {data} = await deleteDemandeurs({demandeurs});
-            console.log(data);
+            await handler({fn:deleteDemandeurs, param:{demandeurs}, show:true});
           }
          
         };
@@ -135,8 +134,7 @@ const Demandeurs = () => {
         const handleCreateGroupe = async () => {
           let demandeurs = getIdArray(table)
 
-          const {data} = await createGroupe({demandeurs});
-          console.log(data);
+          await handler({fn:createGroupe, param:{demandeurs}, show:true});
         };
 
         return (

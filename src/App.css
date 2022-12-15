@@ -12,6 +12,14 @@
   );
 }
 
+.section-bg {
+  background: linear-gradient(
+    120deg,
+    rgb(255,255,255),
+    rgba(203, 65, 107, 0.64) 68.59%,    
+  );
+}
+
 .pink {
   color: #cb416b;
 }
@@ -51,4 +59,19 @@
   border: 1px solid rgba(255, 255, 255, 0.5);
   width: 90%;
   margin: 1rem 0;
+}
+
+.torotate {
+  animation: rotate 1s ease-in;
+  animation-iteration-count: infinite;
+}
+
+
+@keyframes rotate {
+  from{
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

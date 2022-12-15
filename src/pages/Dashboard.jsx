@@ -1,16 +1,20 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import { Ornaments } from '../components'
+import { Loading } from '../components/Loading'
 import Sidebar from '../sections/Sidebar'
 
 const Dashboard = () => {
 
   return (
-    <div className='flex justify-between main-bg min-h-screen'>
+    <div className='flex main-bg min-h-screen'>
+      <Loading />
       <Sidebar/>
 
-      <main className='relative z-20 flex-1 xs:h-[40rem] max-h-screen 
-        my-auto mx-10 bg-gray-50 rounded-xl shadow mt-8 p-8 '>
+      <main className='relative z-20 flex-1 xs:h-[40rem] max-h-screen overflow-hidden
+        my-auto mx-10 bg-gradient-to-r from-gray-50 to-gray-200 rounded-xl shadow mt-8 p-8  max-w-6xl min-w-fit'>
         <Outlet/>
+        <Ornaments />
       </main>
     </div>
   )

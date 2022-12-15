@@ -27,7 +27,7 @@ const StatusMessage = () => {
       { status?.msg && 
           (
             <div className={`${status?.code === 'success'? 'bg-green-700' : 'bg-red-700'}
-            absolute top-2 right-2 rounded-md p-2 flex flex-col z-50 text-gray-300 shadow`}>
+            absolute top-2 right-2 rounded-md p-2 flex flex-col z-50 text-gray-300 shadow min-w-[14rem]`}>
               <h3 className='font-semibold capitalize underline'>{status?.code}</h3>
 
               { handleMsg(status?.msg) }

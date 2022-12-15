@@ -16,13 +16,13 @@ const DemandeurForm = ({toggle, toggleShow}) => {
 
     const handleSubmit = async () => {
         const {data} = await createDemandeur({
-            nom,
+            categorie_sociale,
+            numero_depot,
+            enqueteur,
             prenom,
+            nom,
             cni,
             tel,
-            categorie_sociale,
-            enqueteur,
-            numero_depot
         });
 
         console.log(data);
@@ -32,9 +32,9 @@ const DemandeurForm = ({toggle, toggleShow}) => {
     <>
     {
        toggle && (
-         <Modal toggle={toggle} extra='p-3 flex flex-col gap-8 w-[30rem] p-8 bg-white bg-opacity-90'>
+         <Modal toggle={toggle} extra='p-3 flex flex-col gap-8 w-[60rem] p-8 bg-white bg-opacity-90 '>
             <h3 className='text-3xl font-bold text-center '>Créer un demandeur</h3>
-            <form className='flex flex-col gap-1 p-2' >
+            <form className='flex flex-col gap-1 p-6 bg-gray-300 w-[30rem] rounded-lg' >
                 <InputGroup  id='nom' label='Nom' type='text' handler={setNom} />
                 <InputGroup  id='prenom' label='Prénom' type='text' handler={setNom} />
                 <InputGroup  id='cni' label='CNI' type='text' handler={setNom} />

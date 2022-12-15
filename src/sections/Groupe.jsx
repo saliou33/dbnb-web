@@ -1,13 +1,15 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import React, { useMemo, useEffect, useState, useContext} from 'react';
 import MaterialReactTable from 'material-react-table';
 import { SectionHeader } from '../components';
 import { deselectDemandeurs, selectDemandeurs } from '../api/demandeur';
 import { getGroupes } from '../api/groupe';
 import { Button } from '@mui/material';
 import { createQrcode  } from '../api/qrcode';
+import { ApplicationContext } from '../context/ApplicationContext';
 
 
 const Groupe = () => {
+  const {handler} = useContext(ApplicationContext);
   const [dataList, setDataList] = useState([]);
   const [reload, setReload] = useState(false);
 
@@ -36,7 +38,7 @@ const Groupe = () => {
 
   useEffect(() => {
     const fetchData = async() => {
-        const {data} = await getGroupes();
+        const data = await handler({fn:getGroupes, show:false, out:true})
         setDataList(data?.groupes);
     }
   
@@ -61,22 +63,19 @@ const Groupe = () => {
         const handleSelect = async () => {
           let demandeurs = getIdArray(table);
 
-          const {data} = await selectDemandeurs({demandeurs});
-          console.log(data);
+          await handler({fn: selectDemandeurs, param: {demandeurs},show:true});
         }
 
         const handleDeselect = async () => {
           let demandeurs = getIdArray(table);
 
-          const {data} = await deselectDemandeurs({demandeurs});
-          console.log(data)
+          await handler({fn:deselectDemandeurs, param:{demandeurs}, show: true})
         }
 
         const handleGenerate = async () => {
           let groupe = getIdArray(table);
 
-          const {data} = await createQrcode({owner: 'groupe', owner_id: groupe[0]});
-          console.log(data);
+          await handler({fn:createQrcode, param:{owner: 'groupe', owner_id: groupe[0]}, show:true})
         }
 
         return (

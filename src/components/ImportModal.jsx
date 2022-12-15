@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Modal from './Modal';
 import { uploadDemandeurs } from '../api/demandeur';
 import FileDropZone from './FileDropZone';
+import { ApplicationContext } from '../context/ApplicationContext';
 
 const ImportModal = ({show, toggleShow}) => {
+  const {handler} = useContext(ApplicationContext);
   const [file, setFile] = useState(null);
 
   const handleUpload =  async () => {
-    let formData = new FormData();
 
+    await handler({fn:uploadDemandeurs, param:file})
     const {data} = await uploadDemandeurs(file);
-    console.log(data);
   }
 
   return (
