@@ -8,12 +8,12 @@ import { Button } from '@mui/material';
 import TableSvg from '../assets/table.svg';
 import ImportSvg from '../assets/import.svg';
 import CreateSvg from '../assets/create..svg';
-import { ApplicationContext } from '../context/ApplicationContext';
+import { UserContext } from '../context/UserContext';
 
-const msgIrreversible = "Action irréversible!, Vous voulez toujours continuer?";
+const msgIrreversible = "Action irréversible!, voulez vous toujours continuer?";
 
 const Demandeurs = () => {
-  const {handler} = useContext(ApplicationContext);
+  const {handler} = useContext(UserContext);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [reload, setReload] = useState(false);
   const [dataList, setDataList] = useState([]);

@@ -2,10 +2,10 @@ import React, {useState, useContext} from 'react';
 import Modal from './Modal';
 import { uploadDemandeurs } from '../api/demandeur';
 import FileDropZone from './FileDropZone';
-import { ApplicationContext } from '../context/ApplicationContext';
+import { UserContext } from '../context/UserContext';
 
 const ImportModal = ({show, toggleShow, toggleReload}) => {
-  const {handler} = useContext(ApplicationContext);
+  const {handler} = useContext(UserContext);
   const [file, setFile] = useState(null);
 
   const handleUpload =  async () => {

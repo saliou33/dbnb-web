@@ -1,4 +1,5 @@
 import react, { useReducer, createContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import UserContextProvider from './UserContext';
 
 const initialState = {
@@ -61,6 +62,7 @@ export const ApplicationContext = createContext();
 
 const ApplicationContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const navigate = useNavigate();
 
   const setStatus = (code, msg) => {
     dispatch({type: appActions.SET_STATUS, payload: {code, msg}})
@@ -79,30 +81,13 @@ const ApplicationContextProvider = ({ children }) => {
   }
 
 
-  const handler = async ({fn, param, out=false, show=true}) => {
-    setLoading();
-    try {
-      const {data} = await fn(param);
 
-      if(show) setStatus(statusCode.SUCCESS, data?.msg);
-
-      if(out) {
-        return data;
-      }
-
-    } catch(e) {
-      setStatus(statusCode.ERROR, e?.response?.data?.msg)
-    } finally {
-      clearLoading();
-    }
-  }
 
   return (
     <ApplicationContext.Provider value={{
        ...state, 
        setStatus, 
        clearStatus, 
-       handler,
        setLoading,
        clearLoading 
     }}>

@@ -11,6 +11,8 @@ const initialState = {
   error: '',
 };
 
+export const tokenKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9token';
+
 
 export const userActions = {
   SET_USER_TOKEN: 'SET_USER_TOKEN',
@@ -52,25 +54,48 @@ export const UserContext = createContext();
 export const UserContextProvider = ({ children }) => {
   // TODO: Change auth to be cookie based
   const [state, dispatch] = useReducer(reducer, initialState);
-  const {handler} = useContext(ApplicationContext);
+  const {setStatus, clearLoading, setLoading} = useContext(ApplicationContext);
   const navigate = useNavigate();
 
   const loginUser = async (email, password) => {
       const data = await handler({fn:login, param: { email, password }, out: true})
-      localStorage.setItem('token', data.token);
-      dispatch({type: userActions.SET_USER_TOKEN, payload: data.token});
-      navigate('/dashboard');
+      if(data?.token){
+        localStorage.setItem(tokenKey, data.token);
+        dispatch({type: userActions.SET_USER_TOKEN, payload: data.token});
+        navigate('/dashboard');
+      }
   
   };
 
   const logoutUser = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem(tokenKey);
     dispatch({ type: userActions.REMOVE_USER_TOKEN });
     navigate('/login');
   }
 
+  const handler = async ({fn, param, out=false, show=true}) => {
+    setLoading();
+    try {
+      const {data} = await fn(param);
+      if(show) setStatus(statusCode.SUCCESS, data?.msg);
+
+      if(out) {
+        return data;
+      }
+
+    } catch(e) {
+      let error = e?.response?.data;
+      if(error?.code == 'sessionExpired'){
+        logoutUser();
+      }
+      setStatus(statusCode.ERROR, error?.msg)
+    } finally {
+      clearLoading();
+    }
+  }
+
   const getToken = async () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(tokenKey);
 
     if(token) {
       try {
@@ -82,7 +107,7 @@ export const UserContextProvider = ({ children }) => {
     }
   }
 
-  return <UserContext.Provider value={{ ...state, loginUser, logoutUser, getToken }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ ...state, loginUser, logoutUser, getToken, handler }}>{children}</UserContext.Provider>;
 };
 
 export default UserContextProvider;

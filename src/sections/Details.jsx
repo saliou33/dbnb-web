@@ -2,17 +2,16 @@ import React, { useMemo, useEffect, useState, useContext } from 'react'
 import { SectionHeader } from '../components';
 import { getQrcodes } from '../api/qrcode';
 import MaterialReactTable from 'material-react-table';
-import { ApplicationContext } from '../context/ApplicationContext';
+import { UserContext } from '../context/UserContext';
 
 const Details = () => {
 
-  const {handler} = useContext(ApplicationContext);
+  const {handler} = useContext(UserContext);
   const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const {data} = await getQrcodes();
-      console.log(data);
       setDataList(data?.qrcodes);
     } 
 
@@ -36,7 +35,7 @@ const Details = () => {
         header: 'Lien',
         Cell: ({ cell }) => {
           // TODO: change to icon
-          return <a target='_blank' href={cell.getValue()}>$larr;</a>
+          return <a target='_blank' href={cell.getValue()} className="font-bold text-xl">&darr;</a>
         },
       },
       {
@@ -49,7 +48,6 @@ const Details = () => {
   return (
     <div className='flex flex-col gap-5'>
       <SectionHeader text="Détails"/>
-
 
       <MaterialReactTable 
         columns={columns}
