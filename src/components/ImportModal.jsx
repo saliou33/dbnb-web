@@ -1,7 +1,8 @@
 import React, {useState, useContext} from 'react';
 import Modal from './Modal';
-import { uploadDemandeurs } from '../api/demandeur';
 import FileDropZone from './FileDropZone';
+import Cross from '../assets/cross.svg';
+import { uploadDemandeurs } from '../api/demandeur';
 import { UserContext } from '../context/UserContext';
 
 const ImportModal = ({show, toggleShow, toggleReload}) => {
@@ -14,8 +15,9 @@ const ImportModal = ({show, toggleShow, toggleReload}) => {
   }
 
   return (
-    <Modal extra='flex flex-col gap-8 items-center justify-center w-[25rem] h-[25rem] bg-white rounded-full p-10 overflow-hidden bg-opacity-80' toggle={show}>
-        <span className='text-red-500 text-3xl' onClick={toggleShow}>X</span>
+    <Modal extra='flex flex-col gap-8 items-center justify-center w-[28rem] h-[25rem] bg-gray-300 rounded-lg overflow-hidden p-10 bg-opacity-50 shadow-sm' toggle={show}>
+        <img src={Cross} alt="close modal" onClick={toggleShow}/>
+
         <FileDropZone file={file} setFile={setFile}/>
         {
           file &&

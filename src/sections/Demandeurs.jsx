@@ -62,6 +62,9 @@ const Demandeurs = () => {
       {
         accessorKey: 'selection_expiration_date',
         header: 'Date Expiration',
+        Cell: ({ cell }) => {
+          return <div>{cell.getValue().replace(/T/, ' ').replace(/\..+/, '')}</div>
+        },
         show: false,
       }
   

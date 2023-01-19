@@ -11,7 +11,7 @@ const Dashboard = () => {
       <Loading />
       <Sidebar/>
 
-      <main className='relative z-20 flex-1 xs:h-[40rem] max-h-screen overflow-hidden
+      <main className='relative z-20 flex-1 xs:h-[42rem] max-h-screen overflow-hidden
         my-auto mx-10 bg-gradient-to-r from-gray-50 to-gray-200 rounded-xl shadow mt-8 p-8  max-w-6xl min-w-fit'>
         <Outlet/>
         <Ornaments />

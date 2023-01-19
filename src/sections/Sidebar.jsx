@@ -17,8 +17,8 @@ const Sidebar = () => {
       <span className='line'></span>
       <h2 className='text-gray-200 font-semibold p-1'> Utilisateur </h2>
       <Card>
-        <p>Nom:</p>
-        <p>Tel:</p>
+        <p>Nom: ?</p>
+        <p>Téléphone: ?</p>
         <div className='text-xl'>
          <AiFillSetting className='text-green-800 m-auto cursor-pointer hover:text-green-600'/>
         </div>

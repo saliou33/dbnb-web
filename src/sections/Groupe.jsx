@@ -30,7 +30,10 @@ const Groupe = () => {
       },
       {
         accessorKey: 'created_at',
-        header: 'Date'
+        header: 'Date',
+        Cell: ({ cell }) => {
+          return <div>{cell.getValue().replace(/T/, ' ').replace(/\..+/, '')}</div>
+        },
       }
     ]
   )
@@ -61,15 +64,15 @@ const Groupe = () => {
         const getIdArray = (table) => table.getSelectedRowModel().flatRows.map(row => row.getValue('id'));
 
         const handleSelect = async () => {
-          let demandeurs = getIdArray(table);
+          let groupe = getIdArray(table).pop();
 
-          await handler({fn: selectDemandeurs, param: {demandeurs},show:true});
+          await handler({fn: selectDemandeurs, param: {groupe},show:true});
         }
 
         const handleDeselect = async () => {
-          let demandeurs = getIdArray(table);
+          let groupe = getIdArray(table).pop();
 
-          await handler({fn:deselectDemandeurs, param:{demandeurs}, show: true})
+          await handler({fn:deselectDemandeurs, param:{groupe}, show: true})
         }
 
         const handleGenerate = async () => {

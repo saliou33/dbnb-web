@@ -3,6 +3,7 @@ import { SectionHeader } from '../components';
 import { getQrcodes } from '../api/qrcode';
 import MaterialReactTable from 'material-react-table';
 import { UserContext } from '../context/UserContext';
+import FilledLink from '../assets/FilledLink.svg';
 
 const Details = () => {
 
@@ -35,12 +36,15 @@ const Details = () => {
         header: 'Lien',
         Cell: ({ cell }) => {
           // TODO: change to icon
-          return <a target='_blank' href={cell.getValue()} className="font-bold text-xl">&darr;</a>
+          return <a target='_blank' href={cell.getValue()} className="font-bold text-xl"><img src={FilledLink} alt="Lien vers les qrcodes"/></a>
         },
       },
       {
         accessorKey: 'created_at',
-        header: 'Date'
+        header: 'Date',
+        Cell: ({ cell }) => {
+          return <div>{cell.getValue().replace(/T/, ' ').replace(/\..+/, '')}</div>
+        },
       }
     ]
   )

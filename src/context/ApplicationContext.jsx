@@ -7,7 +7,7 @@ const initialState = {
     code: '',
     msg: '',
   },
-  lease: 5000,
+  lease: 10000,
   loading: false
 };
 
@@ -15,6 +15,7 @@ export const appActions = {
   SET_STATUS: 'SET_STATUS',
   CLEAR_STATUS: 'CLEAR_STATUS',
   SET_LOADING: 'SET_LOADING',
+  CLEAR_LOADING: 'CLEAR_LOADING',
 };
 
 export const statusCode = {
@@ -79,9 +80,6 @@ const ApplicationContextProvider = ({ children }) => {
   const clearLoading = () => {
     dispatch({type: appActions.CLEAR_LOADING, payload: false})
   }
-
-
-
 
   return (
     <ApplicationContext.Provider value={{
