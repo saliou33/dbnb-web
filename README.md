@@ -1,2 +1,2 @@
-# DBND WEB
-React Web App for dbnb
+# DBND 
+DBNB react client app
